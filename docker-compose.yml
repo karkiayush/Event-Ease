@@ -1,0 +1,37 @@
+services:
+  db: # service name
+    image: postgres:latest
+    restart: always # restart the container if there are any problems
+    environment:
+      POSTGRES_USER: ${DB_USERNAME}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_NAME}
+    ports:
+      - "5433:5432" # expose postgres port
+
+
+  # Database Management Interface, Adminer allows us to have visual representation of the database
+  adminer:
+    image: adminer:latest
+    restart: always
+    ports:
+      - "8081:8080" # expose adminer port which by default runs on port 8080 to 8888 as spring boot also runs on 8080
+
+  keycloak:
+    image: quay.io/keycloak/keycloak:latest
+    ports:
+      - "9090:8080" # expose keycloak port
+    environment:
+      KEYCLOAK_ADMIN: ${KEYCLOAK_ADMIN}
+      KEYCLOAK_ADMIN_PASSWORD: ${KEYCLOAK_ADMIN_PASSWORD}
+    # Since we want a keycloak to create my user once and persist it throughout the docker compose environment even if it restarted. So we specified the volume where keycloak will store the data
+    volumes:
+      - keycloak-data:/opt/keycloak/data # Mount the volume named keycloak-data to the /opt/keycloak/data directory inside the keycloak container
+    command:
+      - start-dev # this tells keycloak to run in dev mode, so it doesn't require a real db connection and use in-memory h2 db
+      - --db=dev-file # The value dev-file means that Keycloak will use a file-based database (H2)
+
+volumes:
+  # It tells Docker Compose that a volume with the name keycloak-data exists and how it should be managed.
+  keycloak-data:
+    driver: local
