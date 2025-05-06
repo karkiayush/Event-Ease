@@ -1,14 +1,13 @@
 package com.karkiayush.eventease.domain.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -35,6 +34,27 @@ public class User {
     // TO DO: Organizer manages Event
     // TO DO: Staff works at Event
     // TO DO: Attendee attends Event
+
+    @OneToMany(mappedBy = "organizer", cascade = CascadeType.ALL)
+    private final List<Event> organizedEvents = new ArrayList<>();
+
+    @ManyToMany()
+    @JoinTable(
+            name = "user_attending_events",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "event_id")
+    )
+    private final List<Event> attendingEvents = new ArrayList<>();
+
+
+    @ManyToMany()
+    @JoinTable(
+            name = "user_staffing_events",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "event_id")
+    )
+    private final List<Event> staffingEvents = new ArrayList<>();
+
 
     // CreatedDate annotation is part of Spring Data JPA which automatically populate a field with the timestamp when the entity was persisted into the DB.
     @CreatedDate
