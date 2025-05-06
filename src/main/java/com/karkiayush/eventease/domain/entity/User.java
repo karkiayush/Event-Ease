@@ -5,7 +5,10 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.*;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
 
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Entity
@@ -31,4 +34,18 @@ public class User {
     // TO DO: Organizer manages Event
     // TO DO: Staff works at Event
     // TO DO: Attendee attends Event
+
+    // CreatedDate annotation is part of Spring Data JPA which automatically populate a field with the timestamp when the entity was persisted into the DB.
+    @CreatedDate
+    @Column(name = "created_at", nullable = false, updatable = false)
+    private LocalDateTime createdAt;
+
+    @LastModifiedDate
+    @Column(name = "updated_at", nullable = false)
+    private LocalDateTime updatedAt;
 }
+
+/*The same User represents the Organizer, Staff & Attendee.
+*
+* The User's permission is modeled using roles which we later on assign in keycloak.
+*/
