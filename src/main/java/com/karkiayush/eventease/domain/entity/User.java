@@ -28,5 +28,7 @@ public class User {
     @Column(name = "email", nullable = false, unique = true)
     private String email;
 
-
+    // TO DO: Organizer manages Event
+    // TO DO: Staff works at Event
+    // TO DO: Attendee attends Event
 }
