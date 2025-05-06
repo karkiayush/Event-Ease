@@ -2,6 +2,8 @@ package com.karkiayush.eventease.domain.entity;
 
 import com.karkiayush.eventease.domain.enums.TicketStatusEnum;
 import jakarta.persistence.Column;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.Id;
 
 import java.time.LocalDateTime;
@@ -13,6 +15,7 @@ public class Ticket {
     private UUID id;
 
     @Column(name = "ticketstatus", nullable = false)
+    @Enumerated(EnumType.STRING)
     private TicketStatusEnum status;
 
     @Column(name = "ticket", nullable = false)

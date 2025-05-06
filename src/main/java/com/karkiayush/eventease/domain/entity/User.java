@@ -21,6 +21,7 @@ But since, we're going to implement bidirectional relationships. If we use @Data
 @AllArgsConstructor
 @Builder
 public class User {
+    // The id of the user will be specified in the key-cloak
     @Id
     @Column(name = "id", updatable = false, nullable = false, unique = true)
     private UUID id;
@@ -46,6 +47,6 @@ public class User {
 }
 
 /*The same User represents the Organizer, Staff & Attendee.
-*
-* The User's permission is modeled using roles which we later on assign in keycloak.
-*/
+ *
+ * The User's permission is modeled using roles which we later on assign in keycloak.
+ */
