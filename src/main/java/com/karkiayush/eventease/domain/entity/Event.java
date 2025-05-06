@@ -3,7 +3,6 @@ package com.karkiayush.eventease.domain.entity;
 import com.karkiayush.eventease.domain.enums.EventStatusEnum;
 import jakarta.persistence.*;
 import lombok.*;
-import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 
@@ -54,10 +53,10 @@ public class Event {
     private User organizer;
 
     @ManyToMany(mappedBy = "staffingEvents")
-    private List<User> staff = new ArrayList<>();
+    private final List<User> staff = new ArrayList<>();
 
     @ManyToMany(mappedBy = "attendingEvents")
-    private List<User> attendees = new ArrayList<>();
+    private final List<User> attendees = new ArrayList<>();
 
     @CreatedDate
     @Column(name = "created_at", nullable = false)
