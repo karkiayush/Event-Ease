@@ -54,6 +54,9 @@ public class User {
     )
     private final List<Event> staffingEvents = new ArrayList<>();
 
+    /*-------------User and Ticket Relation(One to Many)-------------*/
+    @OneToMany(mappedBy = "purchaser")
+    private final List<Ticket> tickets = new ArrayList<>();
 
     // CreatedDate annotation is part of Spring Data JPA which automatically populate a field with the timestamp when the entity was persisted into the DB.
     @CreatedDate

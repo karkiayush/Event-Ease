@@ -3,8 +3,12 @@ package com.karkiayush.eventease.domain.entity;
 import com.karkiayush.eventease.domain.enums.TicketStatusEnum;
 import jakarta.persistence.*;
 import lombok.*;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -33,6 +37,23 @@ public class Ticket {
 
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id", nullable = false)
-    private User user;
+    @JoinColumn(name = "purchaser_id", nullable = false)
+    private User purchaser;
+
+    /*-----------Relation between Ticket & TicketValidation Entity(One to Many)-------------*/
+    @OneToMany(mappedBy = "ticket", cascade = CascadeType.ALL)
+    private final List<TicketValidation> validations = new ArrayList<>();
+
+    /*-------------Relation between Ticket & QrCode Entity------------------*/
+
+
+    // TODO: relation with QRCODE Entity
+
+    @CreatedDate
+    @Column(name = "created_at", nullable = false, updatable = false)
+    private LocalDateTime createdAt;
+
+    @LastModifiedDate
+    @Column(name = "updated_at", nullable = false)
+    private LocalDateTime updatedAt;
 }
