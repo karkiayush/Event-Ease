@@ -7,6 +7,8 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -36,7 +38,14 @@ public class TicketType {
     @JoinColumn(name = "event_id")
     private Event event;
 
-    // TODO: Tickets(Relation between TicketType and Ticket)
+    /*<--------------------Relation between TicketType-Ticket(One to Many)------------>*/
+    @OneToMany(
+            mappedBy = "ticketType", cascade = CascadeType.ALL,
+            // orphanRemoval=true ensures that whenever a child entity is removed from Parent collection, it should also be deleted from the database
+            // here, if we remove ticket from tickets list, it also removes the ticket from ticket_type database
+            orphanRemoval = true
+    )
+    private final List<Ticket> tickets = new ArrayList<>();
 
     @CreatedDate
     @Column(name = "created_at", nullable = false)

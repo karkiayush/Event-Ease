@@ -16,13 +16,23 @@ import java.util.UUID;
 @Builder
 public class Ticket {
     @Id
-    @Column(name = "id", nullable = false, unique = true)
+    @GeneratedValue(strategy = GenerationType.UUID)
+    @Column(name = "id", nullable = false, unique = true, updatable = false)
     private UUID id;
 
-    @Column(name = "ticketstatus", nullable = false)
+    @Column(name = "ticket_status", nullable = false)
     @Enumerated(EnumType.STRING)
     private TicketStatusEnum status;
 
     @Column(name = "ticket", nullable = false)
     private LocalDateTime ticketCreationDateTime;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "ticket_type_id", nullable = false)
+    private TicketType ticketType;
+
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
 }
