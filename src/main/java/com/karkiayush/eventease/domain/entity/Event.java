@@ -48,15 +48,23 @@ public class Event {
     @Enumerated(EnumType.STRING)
     private EventStatusEnum status;
 
+    /*-------------For Organizer & Event--------------*/
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "organizer_id")
     private User organizer;
 
+    /*------------For Staff & Event--------------*/
     @ManyToMany(mappedBy = "staffingEvents")
     private final List<User> staff = new ArrayList<>();
 
+    /*------------------For Attendee & Event---------------*/
     @ManyToMany(mappedBy = "attendingEvents")
     private final List<User> attendees = new ArrayList<>();
+
+    /*-----------------For Ticket type & Event-------------------*/
+    @OneToMany(mappedBy = "event", cascade = CascadeType.ALL)
+    private final List<TicketType> ticketTypes = new ArrayList<>();
+
 
     @CreatedDate
     @Column(name = "created_at", nullable = false)

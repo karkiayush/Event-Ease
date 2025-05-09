@@ -31,13 +31,12 @@ public class User {
     @Column(name = "email", nullable = false, unique = true)
     private String email;
 
-    // TO DO: Organizer manages Event
-    // TO DO: Staff works at Event
-    // TO DO: Attendee attends Event
 
+    /*---------------Organizer-------------*/
     @OneToMany(mappedBy = "organizer", cascade = CascadeType.ALL)
     private final List<Event> organizedEvents = new ArrayList<>();
 
+    /*-------------Attendee-------------*/
     @ManyToMany()
     @JoinTable(
             name = "user_attending_events",
@@ -46,7 +45,7 @@ public class User {
     )
     private final List<Event> attendingEvents = new ArrayList<>();
 
-
+    /*--------------Staff---------------*/
     @ManyToMany()
     @JoinTable(
             name = "user_staffing_events",
