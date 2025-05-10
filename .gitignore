@@ -34,3 +34,4 @@ build/
 
 # ignoring env files
 .env
+src/main/resources/static/files/
