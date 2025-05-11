@@ -3,9 +3,9 @@ services:
     image: postgres:latest
     restart: always # restart the container if there are any problems
     environment:
-      POSTGRES_USER: ${DB_USERNAME}
-      POSTGRES_PASSWORD: ${DB_PASSWORD}
-      POSTGRES_DB: ${DB_NAME}
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: QERaKR34eVE[]
+      POSTGRES_DB: event_ease_db
     ports:
       - "5433:5432" # expose postgres port
 
@@ -22,8 +22,8 @@ services:
     ports:
       - "9090:8080" # expose keycloak port
     environment:
-      KEYCLOAK_ADMIN: ${KEYCLOAK_ADMIN}
-      KEYCLOAK_ADMIN_PASSWORD: ${KEYCLOAK_ADMIN_PASSWORD}
+      KEYCLOAK_ADMIN: admin
+      KEYCLOAK_ADMIN_PASSWORD: keyCloakAdminPw<<124ad
     # Since we want a keycloak to create my user once and persist it throughout the docker compose environment even if it restarted. So we specified the volume where keycloak will store the data
     volumes:
       - keycloak-data:/opt/keycloak/data # Mount the volume named keycloak-data to the /opt/keycloak/data directory inside the keycloak container
