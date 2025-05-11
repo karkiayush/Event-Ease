@@ -19,7 +19,6 @@ But since, we're going to implement bidirectional relationships. If we use @Data
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
 public class User {
     // The id of the user will be specified in the key-cloak
     @Id
