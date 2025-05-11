@@ -52,8 +52,12 @@ public class UserProvisioningFilter extends OncePerRequestFilter {
                 user.setId(keycloakUserId);
                 user.setName(userName);
                 user.setEmail(userEmail);
+
                 userRepository.save(user);
             }
         }
+
+        // Proceed with the filter chain
+        filterChain.doFilter(request, response);
     }
 }
